@@ -36,6 +36,9 @@ const project = new typescript.TypeScriptProject({
   buildWorkflow: true,
   buildWorkflowOptions: {
     mutableBuild: false,  // Don't auto-commit mutations
+    preBuildSteps: [
+      { name: 'Setup Bun', uses: 'oven-sh/setup-bun@v2' },
+    ],
   },
   pullRequestTemplate: false,
   depsUpgrade: false,
@@ -50,14 +53,12 @@ const project = new typescript.TypeScriptProject({
   devDeps: [
     'projen',
     '@types/node',
-    'tsx',  // For running projenrc in CI
   ],
 });
 
-// Use tsx to run projenrc (ESM support, works in CI)
-// Locally, run `bun .projenrc.ts` for faster execution
-project.defaultTask?.reset('npx tsx .projenrc.ts');
-project.tasks.tryFind('projen')?.reset('npx tsx .projenrc.ts');
+// Use Bun to run projenrc (faster, native ESM/TS support)
+project.defaultTask?.reset('bun .projenrc.ts');
+project.tasks.tryFind('projen')?.reset('bun .projenrc.ts');
 
 // Ignore local cache and settings
 project.gitignore.exclude('.nx/', '.claude/');
