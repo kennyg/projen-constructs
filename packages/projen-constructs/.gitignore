@@ -36,3 +36,4 @@ jspm_packages/
 !/src/
 /lib
 /dist/
+!/lib/

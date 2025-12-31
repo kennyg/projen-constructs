@@ -95,7 +95,7 @@ const projenConstructs = new typescript.TypeScriptProject({
   tsconfigDev: esmTsConfig,
 
   // projen is a peer dep - users bring their own version
-  peerDeps: ['projen@^0.91.0', 'constructs@^10.0.0'],
+  peerDeps: ['projen@>=0.91.0', 'constructs@^10.0.0'],
   peerDependencyOptions: {
     pinnedDevDependency: true,
   },
@@ -107,6 +107,9 @@ const projenConstructs = new typescript.TypeScriptProject({
 // Configure but skip Vitest/Oxlint for the constructs package itself
 projenConstructs.tasks.tryFind('install')?.reset('echo "Install handled by workspace root"');
 projenConstructs.package.addField('type', 'module');
+
+// Include lib/ in git for GitHub-based installation (no npm publish)
+projenConstructs.gitignore.include('/lib/');
 
 // ============================================
 // Examples (demos showing how to use the constructs)

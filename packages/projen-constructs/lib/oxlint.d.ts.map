@@ -1,0 +1,1 @@
+{"version":3,"file":"oxlint.d.ts","sourceRoot":"","sources":["../src/oxlint.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAY,UAAU,EAAE,MAAM,QAAQ,CAAC;AAEzD,MAAM,WAAW,aAAa;IAC5B;;;OAGG;IACH,QAAQ,CAAC,GAAG,CAAC,EAAE,OAAO,CAAC;CACxB;AAED;;;;;;;;;;;;;GAaG;AACH,qBAAa,MAAO,SAAQ,SAAS;gBAEjC,OAAO,EAAE,UAAU,CAAC,iBAAiB,EACrC,OAAO,GAAE,aAAkB;CAgD9B"}
