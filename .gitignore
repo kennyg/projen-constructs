@@ -36,13 +36,11 @@ jspm_packages/
 !/src/
 /lib
 /dist/
+.nx/
+.claude/
 !/pnpm-workspace.yaml
 !/nx.json
 !/.vscode/settings.json
 !/.mise.toml
 .mise.local.toml
 !/.projenrc.ts
-
-# Local cache and settings
-.nx/
-.claude/

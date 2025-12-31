@@ -46,6 +46,9 @@ const project = new typescript.TypeScriptProject({
 project.defaultTask?.reset('bun .projenrc.ts');
 project.tasks.tryFind('projen')?.reset('bun .projenrc.ts');
 
+// Ignore local cache and settings
+project.gitignore.exclude('.nx/', '.claude/');
+
 // ============================================
 // ESM + Modern Tooling Configuration
 // ============================================
