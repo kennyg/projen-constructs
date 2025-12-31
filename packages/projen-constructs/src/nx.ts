@@ -58,6 +58,15 @@ export class Nx extends Component {
         },
 
         targetDefaults: {
+          compile: {
+            dependsOn: ['^compile'],
+            inputs: [
+              '!{projectRoot}/lib/**/*',
+            ],
+            outputs: [
+              '{projectRoot}/lib',
+            ],
+          },
           build: {
             dependsOn: ['^build'],
             inputs: [
