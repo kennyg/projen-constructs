@@ -21,7 +21,7 @@ const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: 'main',
   packageManager: javascript.NodePackageManager.PNPM,
   projenrcTs: true,
-  minNodeVersion: '20.0.0',
+  minNodeVersion: '22.0.0',  // 20.0.0 has ESM bugs with extensionless bin files
 
   // Disable root-level tooling (handled per-package or via NX)
   jest: false,
