@@ -50,12 +50,14 @@ const project = new typescript.TypeScriptProject({
   devDeps: [
     'projen',
     '@types/node',
+    'tsx',  // For running projenrc in CI
   ],
 });
 
-// Use Bun to run projenrc (faster, native ESM/TS support)
-project.defaultTask?.reset('bun .projenrc.ts');
-project.tasks.tryFind('projen')?.reset('bun .projenrc.ts');
+// Use tsx to run projenrc (ESM support, works in CI)
+// Locally, run `bun .projenrc.ts` for faster execution
+project.defaultTask?.reset('npx tsx .projenrc.ts');
+project.tasks.tryFind('projen')?.reset('npx tsx .projenrc.ts');
 
 // Ignore local cache and settings
 project.gitignore.exclude('.nx/', '.claude/');
@@ -70,12 +72,16 @@ project.addTask('lint', {
   exec: 'pnpm nx run-many -t lint',
 });
 
-// Customize build workflow to also run on push to main
-project.github?.tryFindWorkflow('build')?.on({
+// Customize build workflow
+const buildWorkflow = project.github?.tryFindWorkflow('build');
+
+// Trigger on push to main, PRs, and manual dispatch
+buildWorkflow?.on({
   push: { branches: ['main'] },
   pullRequest: {},
   workflowDispatch: {},
 });
+
 
 // Run lint after compile (as part of post-compile)
 project.postCompileTask.spawn(project.tasks.tryFind('lint')!);

@@ -70,7 +70,7 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "bun .projenrc.ts"
+          "exec": "npx tsx .projenrc.ts"
         }
       ]
     },
