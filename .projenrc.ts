@@ -26,8 +26,19 @@ const project = new typescript.TypeScriptProject({
   // Disable root-level tooling (handled per-package or via NX)
   jest: false,
   eslint: false,
-  github: false,
   sampleCode: false,
+
+  // GitHub Actions for CI (no releases)
+  githubOptions: {
+    mergify: false,
+    pullRequestLint: false,
+  },
+  buildWorkflow: true,
+  buildWorkflowOptions: {
+    mutableBuild: false,  // Don't auto-commit mutations
+  },
+  pullRequestTemplate: false,
+  depsUpgrade: false,
 
   // Disable npm publishing (no npm account)
   release: false,
@@ -48,6 +59,26 @@ project.tasks.tryFind('projen')?.reset('bun .projenrc.ts');
 
 // Ignore local cache and settings
 project.gitignore.exclude('.nx/', '.claude/');
+
+// Override build/test tasks to use NX for all packages
+project.compileTask.reset('pnpm nx run-many -t compile');
+project.testTask.reset('pnpm nx run-many -t test');
+
+// Add lint task using NX
+project.addTask('lint', {
+  description: 'Lint all packages',
+  exec: 'pnpm nx run-many -t lint',
+});
+
+// Customize build workflow to also run on push to main
+project.github?.tryFindWorkflow('build')?.on({
+  push: { branches: ['main'] },
+  pullRequest: {},
+  workflowDispatch: {},
+});
+
+// Run lint after compile (as part of post-compile)
+project.postCompileTask.spawn(project.tasks.tryFind('lint')!);
 
 // ============================================
 // ESM + Modern Tooling Configuration

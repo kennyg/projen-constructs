@@ -1,6 +1,7 @@
 {
   "files": [
     ".gitattributes",
+    ".github/workflows/build.yml",
     ".gitignore",
     ".mise.toml",
     ".npmignore",
