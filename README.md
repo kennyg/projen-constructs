@@ -1,5 +1,7 @@
 # Projen Constructs
 
+[![Build](https://github.com/kennyg/projen-constructs/actions/workflows/build.yml/badge.svg)](https://github.com/kennyg/projen-constructs/actions/workflows/build.yml)
+
 Reusable [projen](https://projen.io/) constructs for modern TypeScript monorepos.
 
 ## Features
