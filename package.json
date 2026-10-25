@@ -17,7 +17,7 @@
   "devDependencies": {
     "@types/node": "^20",
     "constructs": "^10.0.0",
-    "nx": "^20",
+    "nx": "^22",
     "projen": "^0.91.0",
     "ts-node": "^10",
     "typescript": "~5.7.0"
